@@ -1,20 +1,27 @@
 {
   "cli": {
-    "version": ">= 16.18.1",
-    "appVersionSource": "remote"
+  "version": ">= 5.0.0"
   },
   "build": {
-    "preview": {
-      "android": {
-        "buildType": "apk"
-      },
-      "distribution": "internal"
-    },
-    "production": {
-      "autoIncrement": true
-    }
-  },
-  "submit": {
-    "production": {}
+  "development": {
+  "developmentClient": true,
+  "distribution": "internal",
+  "android": {
+  "buildType": "apk"
   }
-}
+  },
+  "preview": {
+  "android": {
+  "buildType": "apk"
+  
+
+  
+  }
+  },
+  "production": {
+  "android": {
+  "buildType": "apk"
+  }
+  }
+  }
+  }
