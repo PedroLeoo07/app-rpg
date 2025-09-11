@@ -12,7 +12,6 @@ import {
   Dimensions,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -185,10 +184,8 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="light" />
       
-      <LinearGradient
-        colors={['#667eea', '#764ba2']}
-        style={styles.header}
-      >
+      <View style={styles.header}>
+        <View style={styles.headerGradient} />
         <Text style={styles.title}>⚔️ ADVENTURE PARTY ⚔️</Text>
         <Text style={styles.subtitle}>Construa sua party épica!</Text>
         
@@ -208,7 +205,7 @@ export default function App() {
             <Text style={styles.statLabel}>Nível Médio</Text>
           </View>
         </View>
-      </LinearGradient>
+      </View>
 
       <View style={styles.content}>
         <View style={styles.controlsContainer}>
@@ -261,12 +258,9 @@ export default function App() {
                 returnKeyType="done"
               />
               <TouchableOpacity style={styles.addButton} onPress={addCharacter}>
-                <LinearGradient
-                  colors={['#56ab2f', '#a8e6cf']}
-                  style={styles.addButtonGradient}
-                >
+                <View style={styles.addButtonGradient}>
                   <Text style={styles.addButtonText}>➕</Text>
-                </LinearGradient>
+                </View>
               </TouchableOpacity>
             </View>
             
@@ -343,6 +337,18 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
+    backgroundColor: '#6366f1',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  headerGradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#8b5cf6',
+    opacity: 0.8,
   },
   title: {
     fontSize: 24,
@@ -497,6 +503,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#22c55e',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   addButtonText: {
     fontSize: 20,
