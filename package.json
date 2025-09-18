@@ -9,11 +9,18 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~6.1.2",
     "expo": "~54.0.1",
+    "expo-sqlite": "~16.0.8",
     "expo-status-bar": "~3.0.7",
     "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-native": "0.81.4",
-    "expo-sqlite": "~16.0.8"
+    "react-native-paper": "^5.14.5",
+    "react-native-vector-icons": "^10.3.0",
+    "react-native-web": "^0.21.0",
+    "@expo/vector-icons": "^15.0.2",
+    "expo-asset": "~12.0.8"
   },
   "private": true
 }
