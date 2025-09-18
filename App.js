@@ -18,10 +18,10 @@ import {
   Text,
   Divider,
   SegmentedButtons,
-  IconButton,
-  Chip,
+
 } from "react-native-paper";
 
+import Header from "./components/Header"; 
 import CharacterCard from "./components/CharacterCard";
 import AddCharacterForm from "./components/AddCharacterCard";
 
@@ -176,92 +176,83 @@ export default function App() {
   return (
     <PaperProvider>
       <View style={styles.container}>
-        <Text style={styles.title}>⚔️ ADVENTURE PARTY ⚔️</Text>
+        <Header total={total} recrutados={recrutados} disponiveis={disponiveis} />
+        <View style={styles.content}>
+            <AddCharacterForm
+            newCharacter={newCharacter}
+            setNewCharacter={setNewCharacter}
+            addCharacter={addCharacter}
+            categories={categories}
+            newCategory={newCategory}
+            setNewCategory={setNewCategory}
+            categoryConfig={categoryConfig}
+            placeholder="Digite o nome do personagem..."
+            />
 
-        {/* Contadores */}
-        <View style={styles.stats}>
-          <Chip icon="account-group">Total: {total}</Chip>
-          <Chip icon="check">Recrutados: {recrutados}</Chip>
-          <Chip icon="account-off-outline">Disponíveis: {disponiveis}</Chip>
+            <SegmentedButtons
+            value={filter}
+            onValueChange={setFilter}
+            style={{ marginBottom: 10 }}
+            buttons={[
+                { value: "todos", label: "Todos" },
+                { value: "recrutados", label: "Recrutados" },
+                { value: "disponíveis", label: "Disponíveis" },
+            ]}
+            />
+            <SegmentedButtons
+            value={sortBy}
+            onValueChange={setSortBy}
+            style={{ marginBottom: 15 }}
+            buttons={[
+                { value: "name", label: "Nome" },
+                { value: "level", label: "Nível" },
+                { value: "category", label: "Categoria" },
+            ]}
+            />
+
+            <Divider style={{ marginBottom: 10 }} />
+
+            <FlatList
+            data={filteredAndSortedCharacters}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+                <CharacterCard
+                item={item}
+                onToggleRecruit={toggleRecruit}
+                onRemove={confirmRemoveCharacter}
+                onToggleFavorite={toggleFavorite}
+                onLevelUp={levelUp}
+                categoryConfig={categoryConfig}
+                highlight={item.recruited}
+                />
+            )}
+            ListEmptyComponent={
+                <Text style={styles.empty}>Nenhum herói encontrado</Text>
+            }
+            contentContainerStyle={{ paddingBottom: 40 }}
+            />
+
+            {characters.length > 0 && (
+            <View style={styles.actions}>
+                <Button
+                mode="contained-tonal"
+                icon="account-multiple-check"
+                onPress={recruitAll}
+                >
+                Recrutar Todos
+                </Button>
+                <Button
+                mode="outlined"
+                icon="delete"
+                textColor="red"
+                onPress={resetParty}
+                >
+                Resetar Party
+                </Button>
+            </View>
+            )}
         </View>
 
-        <AddCharacterForm
-          newCharacter={newCharacter}
-          setNewCharacter={setNewCharacter}
-          addCharacter={addCharacter}
-          categories={categories}
-          newCategory={newCategory}
-          setNewCategory={setNewCategory}
-          categoryConfig={categoryConfig}
-          placeholder="Digite o nome do personagem..."
-        />
-
-        {/* Filtro e Ordenação */}
-        <SegmentedButtons
-          value={filter}
-          onValueChange={setFilter}
-          style={{ marginBottom: 10 }}
-          buttons={[
-            { value: "todos", label: "Todos" },
-            { value: "recrutados", label: "Recrutados" },
-            { value: "disponíveis", label: "Disponíveis" },
-          ]}
-        />
-        <SegmentedButtons
-          value={sortBy}
-          onValueChange={setSortBy}
-          style={{ marginBottom: 15 }}
-          buttons={[
-            { value: "name", label: "Nome" },
-            { value: "level", label: "Nível" },
-            { value: "category", label: "Categoria" },
-          ]}
-        />
-
-        <Divider style={{ marginBottom: 10 }} />
-
-        <FlatList
-          data={filteredAndSortedCharacters}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <CharacterCard
-              item={item}
-              onToggleRecruit={toggleRecruit}
-              onRemove={confirmRemoveCharacter}
-              onToggleFavorite={toggleFavorite}
-              onLevelUp={levelUp}
-              categoryConfig={categoryConfig}
-              highlight={item.recruited}
-            />
-          )}
-          ListEmptyComponent={
-            <Text style={styles.empty}>Nenhum herói encontrado</Text>
-          }
-          contentContainerStyle={{ paddingBottom: 40 }}
-        />
-
-        {/* Ações rápidas */}
-        {characters.length > 0 && (
-          <View style={styles.actions}>
-            <Button
-              mode="contained-tonal"
-              icon="account-multiple-check"
-              onPress={recruitAll}
-            >
-              Recrutar Todos
-            </Button>
-            <Button
-              mode="outlined"
-              icon="delete"
-              textColor="red"
-              onPress={resetParty}
-            >
-              Resetar Party
-            </Button>
-          </View>
-        )}
-
-        {/* Modal de confirmação */}
         <Portal>
           <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)}>
             <Dialog.Title>Remover Personagem</Dialog.Title>
@@ -277,7 +268,6 @@ export default function App() {
           </Dialog>
         </Portal>
 
-        {/* Snackbar de feedback */}
         <Snackbar
           visible={snackbarVisible}
           onDismiss={() => setSnackbarVisible(false)}
@@ -291,17 +281,18 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f8f9fa", padding: 20 },
-  title: { fontSize: 26, fontWeight: "bold", textAlign: "center", marginVertical: 20 },
-  empty: { textAlign: "center", color: "#7f8c8d", marginTop: 20, fontStyle: "italic" },
-  stats: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 10,
+  container: { flex: 1, backgroundColor: "#f8f9fa" }, 
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 15,
   },
+  empty: { textAlign: "center", color: "#7f8c8d", marginTop: 20, fontStyle: "italic" },
+
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 10,
+    paddingBottom: 10, 
   },
 });
