@@ -24,6 +24,7 @@ import {
 import Header from "./components/Header"; 
 import CharacterCard from "./components/CharacterCard";
 import AddCharacterForm from "./components/AddCharacterCard";
+import Footer from "./components/Footer";
 
 if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -276,6 +277,7 @@ export default function App() {
           {snackbarMessage}
         </Snackbar>
       </View>
+      <Footer />
     </PaperProvider>
   );
 }

@@ -17,34 +17,44 @@ export default function CharacterCard({ item, onToggleRecruit, onRemove, categor
   return (
     <Animated.View style={[styles.wrapper, { transform: [{ scale: scaleAnim }] }]}> 
       <TouchableOpacity
-        activeOpacity={0.9}
+        activeOpacity={0.93}
         onPress={() => { animatePress(); onToggleRecruit(item); }}
         onLongPress={() => onRemove(item)}
         style={[
           styles.card,
           { backgroundColor: config.bgColor, borderLeftColor: config.color },
-          item.recruited && styles.cardRecruited
+          item.recruited && styles.cardRecruited,
+          item.recruited && { shadowColor: config.color, shadowOpacity: 0.25, shadowRadius: 8, borderLeftWidth: 8 }
         ]}
       >
         <View style={styles.left}>
-          <Text style={styles.icon}>{config.icon}</Text>
+          <View style={[styles.avatar, { backgroundColor: config.color + '22' }]}> 
+            <Text style={styles.icon}>{config.icon}</Text>
+          </View>
         </View>
 
         <View style={styles.body}>
           <Text style={styles.name} numberOfLines={1}>{item.name}</Text>
           <Text style={styles.meta}>{item.category} • Nível {item.level}</Text>
+          {item.recruited && (
+            <Text style={styles.recruitedLabel}>Recrutado</Text>
+          )}
         </View>
 
         <View style={styles.actions}>
           <IconButton
             icon={item.recruited ? "account-check" : "account-plus"}
-            size={20}
+            size={22}
+            style={styles.actionBtn}
             onPress={() => onToggleRecruit(item)}
+            iconColor={item.recruited ? config.color : '#727272'}
           />
           <IconButton
             icon="delete"
-            size={20}
+            size={22}
+            style={styles.actionBtn}
             onPress={() => onRemove(item)}
+            iconColor="#cf1212"
           />
         </View>
       </TouchableOpacity>
@@ -53,29 +63,55 @@ export default function CharacterCard({ item, onToggleRecruit, onRemove, categor
 }
 
 const styles = StyleSheet.create({
-  wrapper: { marginBottom: 12 },
+  wrapper: { marginBottom: 16 },
   card: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 12,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 16,
     borderLeftWidth: 6,
-    elevation: 1
+    backgroundColor: '#fff',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.10,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    marginHorizontal: 2,
   },
   cardRecruited: {
-    opacity: 0.9
+    opacity: 1,
+    backgroundColor: '#f0fff0',
+    borderLeftColor: '#48c019',
   },
   left: {
-    width: 48,
-    height: 48,
-    borderRadius: 8,
+    width: 54,
+    height: 54,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 12
+    marginRight: 14,
   },
-  icon: { fontSize: 20 },
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#eee',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#fff',
+    elevation: 2,
+  },
+  icon: { fontSize: 24 },
   body: { flex: 1 },
-  name: { fontSize: 16, fontWeight: "700" },
-  meta: { fontSize: 12, color: "#666", marginTop: 2 },
-  actions: { flexDirection: "row", alignItems: "center" }
+  name: { fontSize: 17, fontWeight: "bold", color: '#222' },
+  meta: { fontSize: 13, color: "#666", marginTop: 2 },
+  recruitedLabel: {
+    marginTop: 4,
+    fontSize: 12,
+    color: '#48c019',
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+  },
+  actions: { flexDirection: "row", alignItems: "center", marginLeft: 6 },
+  actionBtn: { margin: 0, padding: 0 },
 });
