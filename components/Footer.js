@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 18,
     marginRight: 6,
-    color: '#fff',
+    color: '#ff3b3b',
     opacity: 0.85,
   },
   text: {
-    color: '#fff',
+    color: '#ff3b3b',
     fontSize: 15,
     fontWeight: '600',
     letterSpacing: 0.2,

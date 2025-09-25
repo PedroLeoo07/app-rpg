@@ -36,12 +36,13 @@ export default function AddCharacterForm({
           onChangeText={setNewCharacter}
           style={[styles.input, { flex: 1 }]}
           error={hasError}
+          theme={{ colors: { primary: '#ff3b3b', text: '#fff', background: '#181818', placeholder: '#ff3b3b' } }}
+          placeholderTextColor="#ff3b3b"
         />
       </View>
-      <HelperText type="error" visible={hasError}>
+      <HelperText type="error" visible={hasError} style={{ color: '#ff3b3b' }}>
         Digite um nome válido.
       </HelperText>
-
       {/* Dropdown de categorias */}
       <Menu
         visible={menuVisible}
@@ -52,11 +53,13 @@ export default function AddCharacterForm({
             onPress={showMenu}
             style={styles.dropdownButton}
             icon="chevron-down"
-            labelStyle={{ fontSize: 18 }}
+            labelStyle={{ fontSize: 18, color: '#ff3b3b' }}
+            textColor="#ff3b3b"
           >
             {categoryConfig[newCategory]?.icon} {newCategory}
           </Button>
         }
+        contentStyle={{ backgroundColor: '#181818' }}
       >
         {categories.map((category) => (
           <Menu.Item
@@ -66,17 +69,18 @@ export default function AddCharacterForm({
               setNewCategory(category);
               hideMenu();
             }}
+            titleStyle={{ color: '#ff3b3b' }}
           />
         ))}
       </Menu>
-
       <Button
         mode="contained"
         style={styles.addButton}
         onPress={addCharacter}
         disabled={hasError}
         icon="plus-circle"
-        labelStyle={{ fontSize: 18 }}
+        labelStyle={{ fontSize: 18, color: '#fff' }}
+        buttonColor="#ff3b3b"
       >
         Adicionar
       </Button>
@@ -86,7 +90,7 @@ export default function AddCharacterForm({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#181818",
     borderRadius: 16,
     padding: 18,
     marginBottom: 24,
@@ -105,12 +109,12 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#232323',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
     borderWidth: 2,
-    borderColor: '#eee',
+    borderColor: '#ff3b3b',
     elevation: 1,
   },
   avatarIcon: {
@@ -118,20 +122,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: 'transparent',
     borderWidth: 0,
-    color: '#333',
+    color: '#ff3b3b',
   },
   input: {
     marginBottom: 0,
+    color: '#fff',
   },
   dropdownButton: {
     marginBottom: 14,
     justifyContent: "flex-start",
     borderRadius: 8,
-    borderColor: '#bbb',
+    borderColor: '#ff3b3b',
+    borderWidth: 1.5,
+    backgroundColor: '#181818',
   },
   addButton: {
     borderRadius: 10,
-    backgroundColor: "#2ecc71",
+    backgroundColor: "#ff3b3b",
     marginTop: 8,
     paddingVertical: 6,
     elevation: 2,

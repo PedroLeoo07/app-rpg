@@ -283,13 +283,13 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f8f9fa" }, 
+  container: { flex: 1, backgroundColor: "#000" }, 
   content: {
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 15,
   },
-  empty: { textAlign: "center", color: "#7f8c8d", marginTop: 20, fontStyle: "italic" },
+  empty: { textAlign: "center", color: "#ff3b3b", marginTop: 20, fontStyle: "italic" },
 
   actions: {
     flexDirection: "row",

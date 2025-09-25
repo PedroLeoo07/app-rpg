@@ -6,7 +6,7 @@ const Header = ({ total, recrutados, disponiveis }) => {
     return (
         <View style={styles.headerWrapper}>
             <Appbar.Header
-                theme={{ colors: { primary: "#181a20" } }}
+                theme={{ colors: { primary: "#000" } }}
                 style={styles.appbar}
                 statusBarHeight={30}
             >
@@ -26,7 +26,7 @@ const Header = ({ total, recrutados, disponiveis }) => {
 
 const styles = StyleSheet.create({
     headerWrapper: {
-        backgroundColor: '#181a20',
+        backgroundColor: '#000',
         borderBottomLeftRadius: 18,
         borderBottomRightRadius: 18,
         overflow: 'hidden',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: "bold",
         textAlign: "center",
-        color: "#fff",
+        color: "#ff3b3b",
         textShadowColor: '#000a',
         textShadowOffset: { width: 0, height: 2 },
         textShadowRadius: 6,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         paddingVertical: 14,
-        backgroundColor: '#23242b',
+        backgroundColor: '#181818',
         borderBottomWidth: 0,
         borderBottomColor: 'transparent',
         gap: 8,
@@ -68,16 +68,20 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     chipTotal: {
-        backgroundColor: '#3b3b3b',
-        color: '#fff',
+        backgroundColor: '#1a1a1a',
+        color: '#ff3b3b',
+        borderColor: '#ff3b3b',
+        borderWidth: 1,
     },
     chipRecrutados: {
-        backgroundColor: '#cf1212',
+        backgroundColor: '#ff3b3b',
         color: '#fff',
     },
     chipDisponiveis: {
-        backgroundColor: '#48c019',
-        color: '#fff',
+        backgroundColor: '#222',
+        color: '#ff3b3b',
+        borderColor: '#ff3b3b',
+        borderWidth: 1,
     },
 });
 
